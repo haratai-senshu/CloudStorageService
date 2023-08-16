@@ -1,0 +1,28 @@
+{% extends "main/base.html" %}
+
+{% block main %}
+<form class="form-signin" method="POST">
+  {% csrf_token %}
+  <div class="alert alert-secondary" role="alert">
+    <h5 class="text-center">注意</h5>
+    <p class="text-center">ユーザー名は英数字のみ使用可能。<br>
+  「(」「)」「-」スペースは使えない。<br>記号の使用はなるべく控えてほしい。<br>
+  代わりに「_」アンダーバーを推奨。<br>
+  <br>
+  パスワードは英数字大文字小文字で<br>８文字以上</p>
+  </div>
+  <h1 class="h3 mb-3 font-weight-normal">アカウント作成</h1>
+  {% if error %}
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+  {% endif %}
+  <label for="inputName" class="sr-only">ユーザー名</label>
+  <input type="text" id="inputEmail" class="form-control" name="username" placeholder="UserName" required autofocus>
+  <label for="inputPassword" class="sr-only">パスワード</label>
+  <input type="password" id="inputPassword" class="form-control"  name="password1" placeholder="Password" required>
+  <label for="inputPassword" class="sr-only">パスワード(確認用)</label>
+  <input type="password" id="inputPassword" class="form-control"  name="password2" placeholder="Password" required>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">サインアップ</button>
+</form>
+{% endblock %}

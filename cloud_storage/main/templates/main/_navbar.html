@@ -1,0 +1,60 @@
+{% load static %}
+{% load tag_library %}
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+   <div class="container-fluid">
+     <a class="navbar-brand" href="/TCloud">はらDRIVE</a>
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbar">
+       <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+
+
+         {% if user.username == 'tyakyumyou_cloud' %}
+         <li class="nav-item">
+           <a class="nav-link active" aria-current="page" href="{% url 'create' %}">アップロード</a>
+         </li>
+         <li class="nav-item dropdown">
+           <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">アカウント詳細</a>
+           <ul class="dropdown-menu">
+             <li><p class='dropdown-item'>{{ user.username }}</p></li>
+             <li><a class="dropdown-item" href="{% url 'password_change' %}">パスワードの変更</a></li>
+             <li><a class="dropdown-item" href="{% url 'logout' %}">ログアウト</a></li>
+           </ul>
+         </li>
+
+       </ul>
+       <form class="d-flex" role="search" method="get">
+         <input type="search" value="{{ request.GET.query }}" class='center input_css form-control' name="query" placeholder="ドライブで検索">
+       </form>
+         {% elif request.user.is_authenticated %}
+         <li class="nav-item">
+           <a class="nav-link {{ user.username|ext:'4' }}" aria-current="page" href="{% url 'create' %}">アップロード</a>
+         </li>
+
+
+         <!--<li class="nav-item">
+           <a class="nav-link" href="#">リンク</a>
+         </li>-->
+         <!--<li class="nav-item">
+           <a class="nav-link disabled">無効</a>
+         </li>-->
+         <li class="nav-item dropdown">
+           <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">アカウント詳細</a>
+           <ul class="dropdown-menu">
+             <li><p class='dropdown-item'>{{ user.username }}</p></li>
+             <li><a class="dropdown-item" href="{% url 'password_change' %}">パスワードの変更</a></li>
+             <li><a class="dropdown-item" href="{% url 'logout' %}">ログアウト</a></li>
+           </ul>
+         </li>
+
+       </ul>
+       <form class="d-flex" role="search" method="get">
+         <input type="search" value="{{ request.GET.query }}" class='center input_css form-control' name="query" placeholder="ドライブで検索">
+       </form>
+       {% else %}
+
+       {% endif %}
+     </div>
+   </div>
+ </nav>

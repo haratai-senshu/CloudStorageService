@@ -1,0 +1,22 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block main %}
+
+<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0;">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+  <div class="card">
+      <div class="card-body " style="padding: 0;">
+        <div style="height:100px;">
+          <input class="my-4 form-control form-control-lg" multiple id="formFileLg" type="file" name="file_name" value="" required>
+          <input class="not_show" id="formFileLg" type="text" name="user_name" value="{{ user.username }}" required>
+        </div>
+      </div>
+      <input class='mx-4 btn btn-success' type="submit" name="btn_upload" value="アップロード">
+    </div>
+    </form>
+</div>
+
+{% endblock %}

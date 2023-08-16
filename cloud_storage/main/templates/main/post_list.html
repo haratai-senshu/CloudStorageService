@@ -1,0 +1,67 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% load tag_library %}
+
+{% block main %}
+
+{% if user.username == 'tyakyumyou_cloud' %}
+<h6 class="mt-2 text-center h6">{{ user.username|ext:'2' }}使用中</h6>
+{% else %}
+<div>
+  <div class="progress mt-3 mx-4" style="height: 23px;" role="progressbar" aria-valuenow="{{ user.username|ext:'1' }}" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar {{ user.username|ext:'3' }}" style="width:{{ user.username|ext:'1' }}"></div>
+  </div>
+  {% if user.username|ext:'2' != 'hidden' %}
+  <p class="text-center">{{ user.username|ext:'1' }}</p>
+  <h6 class="text-center">{{ user.username|ext:'2' }}使用中</h6>
+  {% endif %}
+</div>
+<div class="alert alert-danger mx-4" role="alert" {{ user.username|ext:'5' }}>アップロード可能な容量がない為ファイルを新規にアップロードできません。ファイルを削除して容量を確保してください。</div>
+{% endif %}
+
+
+<div class="row my-4 mx-2">
+
+  {% if post_list %}
+
+  {% for post in post_list  %}
+    {% if post.user_name == user.username %}
+    <div class="col-6 col-sm-3 col-md-3 col-lg-2" style="padding: 0;">
+        <a class="text-decoration-none link-dark" href="{% url 'detail' post.id %}">
+        <div class="card">
+            <div class="card-body " style="padding: 0;">
+              <div style="height:185px;">
+                <script type="text/javascript">
+                  var file = '{{ post.file_name }}';
+                  var file_name = file.split('.').pop();
+
+                  if (file_name == 'png' || file_name == 'jpg' || file_name == 'gif' || file_name == 'webp' || file_name == 'jpeg') {
+                      var file_type_re = '<img class="mw-100 rounded" style="width:100%; height:100%; object-fit: cover;" src="/media/{{ user.username }}/low_{{ post.file_name }}">'
+                  document.write(file_type_re);}
+                  else if(file_name == 'mp4' || file_name == 'mov' || file_name == 'MP4' || file_name == 'MOV'){
+                      var file_type_re = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" poster="/media/{{ user.username }}/thum_{{ post.file_name }}" class="bi bi-play-btn" viewBox="0 0 16 16"><path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/></svg>'
+                  document.write(file_type_re);}
+                  else if(file_name == 'mp3' || file_name == 'wav' || file_name == 'aac' || file_name == 'webm'){
+                      var file_type_re = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-music-note-list" viewBox="0 0 16 16"><path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z"/><path fill-rule="evenodd" d="M12 3v10h-1V3h1z"/><path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1V2.82z"/><path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/></svg>'
+                  document.write(file_type_re);}
+                  else {
+                      var file_type_re = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-folder2" viewBox="0 0 16 16"><path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2.5 3a.5.5 0 0 0-.5.5V6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5zM14 7H2v5.5a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V7z"/></svg>'
+                  document.write(file_type_re);}
+                </script>
+              </div>
+            </div>
+          <h5 class="card-header text-truncate">{{ post.file_name }}</h5></a>
+          </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+  {% else %}
+  <h3 class="text-center">ファイルが存在しません</h3>
+  {% endif %}
+
+</div>
+
+
+
+{% endblock %}

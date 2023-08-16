@@ -1,0 +1,56 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% load tag_library %}
+
+{% block main %}
+
+<div class="row my-2 mx-2">
+
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0;">
+      <div class="card mx-auto">
+        <h3 class="card-header">{{ object.file_name }}</h3>
+          <div class="card-body " style="padding: 0;">
+            <div style="width:100%; height:50%;">
+
+              <script type="text/javascript">
+                var file = '{{ post.file_name }}';
+                var file_name = file.split('.').pop();
+
+                if (file_name == 'png' || file_name == 'jpg' || file_name == 'gif' || file_name == 'webp' || file_name == 'jpeg') {
+                    var file_type_re = '<img class="mw-100 rounded" style="width:100%; height:100%; object-fit: cover;" src="/media/{{ user.username }}/{{ post.file_name }}">'
+                document.write(file_type_re);}
+                else if(file_name == 'mp4' || file_name == 'mov' || file_name == 'MP4' || file_name == 'MOV'){
+                    var file_type_re = '<video id="video" controls poster="/media/{{ user.username }}/thum_{{ object.file_name }}" src="/media/{{ user.username }}/{{ object.file_name }}" width="100%" height="100%"></video>'
+                document.write(file_type_re);}
+                else if(file_name == 'mp3' || file_name == 'wav' || file_name == 'aac' || file_name == 'webm'){
+                    var file_type_re = '<audio controls><source src="/media/{{ user.username }}/{{ object.file_name }}"></audio>'
+                document.write(file_type_re);}
+                else if(file_name == 'pdf'){
+                    var file_type_re = '<object data="/media/{{ user.username }}/{{ object.file_name }}" type="application/pdf" width="100%" height="100%"><iframe src="/media/{{ user.username }}/{{ object.file_name }}" width="100%" height="100%"><p><b>表示されない時の表示</b>: <a href="pdf.pdf">PDF をダウンロード</a>.</p></iframe></object>'
+                document.write(file_type_re);}
+                else if(file_name == 'txt' || file_name == 'py'){
+                    var file_type_re = '<object src="/media/{{ user.username }}/{{ object.file_name }}" date="/media/{{ user.username }}/{{ object.file_name }}" type="text/plain"></object>'
+                document.write(file_type_re);}
+                else {
+                    var file_type_re = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-folder2" viewBox="0 0 16 16"><path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2.5 3a.5.5 0 0 0-.5.5V6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5zM14 7H2v5.5a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V7z"/></svg>'
+                document.write(file_type_re);}
+              </script>
+            </div>
+          </div>
+          <a class="my-2 mx-5 btn btn-outline-success" href="/media/{{ user.username }}/{{ object.file_name }}" download="/media/{{ user.username }}/{{ object.file_name }}">ダウンロード</a>
+          <a class="my-1 mb-2 mx-5 btn btn-outline-danger" href="{% url 'delete' object.pk %}">削除</a>
+        </div>
+  </div>
+<p class="sp fs-6 mt-2">投稿日時 {{ post.created }}</p>
+<p class="sp fs-6">ファイルのサイズ {{ user.username|ext:object.file_name }}</p>
+
+<p class="pc fs-5 mt-2">投稿日時 {{ post.created }}</p>
+<p class="pc fs-5">ファイルのサイズ {{ user.username|ext:object.file_name }}</p>
+
+
+
+</div>
+
+
+{% endblock %}
